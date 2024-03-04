@@ -31,6 +31,7 @@ client.on("connect", () => {
         console.log("New email received:");
         console.log(`From: ${message.from.address}`);
         console.log(`Subject: ${message.title}`);
+        console.log(`Object: ${JSON.stringify(message)}`);
 
         // Fetch the email content using the message's UID
         fetchEmailContent(message.UID, (err, content) => {
@@ -77,3 +78,4 @@ function fetchEmailContent(uid, callback) {
     });
   });
 }
+

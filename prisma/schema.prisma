@@ -11,9 +11,20 @@ datasource db {
 }
 
 model tickets {
-  id Int @id @default(autoincrement())
-  email String
-  ticketId Int @unique
-  messageId String
-  
+  id        Int       @id @default(autoincrement())
+  email     String
+  fullName  String
+  ticketId  Int       @unique
+  subject   String
+  messages  message[]
+}
+
+model message {
+  id        Int @id @default(autoincrement())
+  isReply   Boolean
+  messageId String 
+  replyId   String 
+  date      DateTime
+  tickets   tickets? @relation(fields: [ticketsId], references: [id])
+  ticketsId Int?
 }
