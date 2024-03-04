@@ -1,0 +1,38 @@
+{
+  "UIDValidity": "14",
+  "path": "INBOX",
+  "UID": 1000,
+  "flags": ["\\Recent"],
+  "internalDate": "2024-03-04T08:55:04.000Z",
+  "bodystructure": {
+    "1": {
+      "part": "1",
+      "type": "text/plain",
+      "parameters": { "charset": "utf-8" },
+      "encoding": "7bit",
+      "size": 6,
+      "lines": 1
+    },
+    "2": {
+      "part": "2",
+      "type": "text/html",
+      "parameters": { "charset": "utf-8" },
+      "encoding": "7bit",
+      "size": 94,
+      "lines": 1
+    },
+    "type": "multipart/alternative"
+  },
+  "folders": ["INBOX"],
+  "type": "Normal",
+  "date": "2024-03-04T08:54:50.000Z",
+  "title": "Subject",
+  "from": { "name": "justdev email", "address": "justdev001.email@gmail.com" },
+  "to": [
+    {
+      "name": "takacspatrik993@outlook.com",
+      "address": "takacspatrik993@outlook.com"
+    }
+  ],
+  "messageId": "<CAPrYACWQLKeJRD_pVYHhS7=dpA5H6c37dv8mHEkXgzvGaAXqdw@mail.gmail.com>"
+}
