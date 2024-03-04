@@ -1,38 +1,85 @@
-{
-  "UIDValidity": "14",
-  "path": "INBOX",
-  "UID": 1000,
-  "flags": ["\\Recent"],
-  "internalDate": "2024-03-04T08:55:04.000Z",
-  "bodystructure": {
-    "1": {
-      "part": "1",
-      "type": "text/plain",
-      "parameters": { "charset": "utf-8" },
-      "encoding": "7bit",
-      "size": 6,
-      "lines": 1
+[
+  {
+    "UIDValidity": "14",
+    "path": "INBOX",
+    "UID": 1000,
+    "flags": ["\\Recent"],
+    "internalDate": "2024-03-04T08:55:04.000Z",
+    "bodystructure": {
+      "1": {
+        "part": "1",
+        "type": "text/plain",
+        "parameters": { "charset": "utf-8" },
+        "encoding": "7bit",
+        "size": 6,
+        "lines": 1
+      },
+      "2": {
+        "part": "2",
+        "type": "text/html",
+        "parameters": { "charset": "utf-8" },
+        "encoding": "7bit",
+        "size": 94,
+        "lines": 1
+      },
+      "type": "multipart/alternative"
     },
-    "2": {
-      "part": "2",
-      "type": "text/html",
-      "parameters": { "charset": "utf-8" },
-      "encoding": "7bit",
-      "size": 94,
-      "lines": 1
+    "folders": ["INBOX"],
+    "type": "Normal",
+    "date": "2024-03-04T08:54:50.000Z",
+    "title": "Subject",
+    "from": {
+      "name": "justdev email",
+      "address": "justdev001.email@gmail.com"
     },
-    "type": "multipart/alternative"
+    "to": [
+      {
+        "name": "takacspatrik993@outlook.com",
+        "address": "takacspatrik993@outlook.com"
+      }
+    ],
+    "messageId": "<CAPrYACWQLKeJRD_pVYHhS7=dpA5H6c37dv8mHEkXgzvGaAXqdw@mail.gmail.com>"
   },
-  "folders": ["INBOX"],
-  "type": "Normal",
-  "date": "2024-03-04T08:54:50.000Z",
-  "title": "Subject",
-  "from": { "name": "justdev email", "address": "justdev001.email@gmail.com" },
-  "to": [
-    {
-      "name": "takacspatrik993@outlook.com",
-      "address": "takacspatrik993@outlook.com"
-    }
-  ],
-  "messageId": "<CAPrYACWQLKeJRD_pVYHhS7=dpA5H6c37dv8mHEkXgzvGaAXqdw@mail.gmail.com>"
-}
+  {
+    "SECOND":2
+  },
+  {
+    "UIDValidity": "14",
+    "path": "INBOX",
+    "UID": 1024,
+    "flags": ["\\Recent"],
+    "internalDate": "2024-03-04T15:48:50.000Z",
+    "bodystructure": {
+      "1": {
+        "part": "1",
+        "type": "text/plain",
+        "parameters": { "charset": "utf-8" },
+        "encoding": "quoted-printable",
+        "size": 233,
+        "lines": 15
+      },
+      "2": {
+        "part": "2",
+        "type": "text/html",
+        "parameters": { "charset": "utf-8" },
+        "encoding": "quoted-printable",
+        "size": 944,
+        "lines": 14
+      },
+      "type": "multipart/alternative"
+    },
+    "folders": ["INBOX"],
+    "type": "Normal",
+    "date": "2024-03-04T15:48:36.000Z",
+    "title": "Re: asd",
+    "from": { "name": "Patrik Takacs", "address": "takacspatrik993@gmail.com" },
+    "to": [
+      {
+        "name": "takacspatrik993@outlook.com",
+        "address": "takacspatrik993@outlook.com"
+      }
+    ],
+    "inReplyTo": "<CACKP0f9SO6J+Om-0++9Su+WDBLeJdWpn_zp86o+hymz-vFvOuQ@mail.gmail.com>",
+    "messageId": "<CACKP0f-Q0SgLN9r-mw+AzctW3yd8oDYeWfevxCXBz3ZnkhBmNA@mail.gmail.com>"
+  }
+]

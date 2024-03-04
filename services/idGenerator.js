@@ -33,5 +33,4 @@ async function searchAndGenerateUniqueTicketId() {
   }
 }
 
-const id = searchAndGenerateUniqueTicketId();
-module.exports = id;
+module.exports = searchAndGenerateUniqueTicketId;

@@ -1,4 +1,4 @@
-// sendEmail.js
+// respondEmail.js
 
 const nodemailer = require("nodemailer");
 require('dotenv').config();
@@ -18,22 +18,24 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-// Send an email
-function sendEmail(recipientEmail, subject, text) {
-  const emailContent = {
+// Reply to the Email
+function respondToEmail(recipientEmail) {
+  const replyContent = {
     from: smptEmail,
     to: recipientEmail,
-    subject: subject,
-    text: text,
+    subject: "Re: Hello, this is the subject",
+    text: "This is the body of the reply.",
   };
 
-  transporter.sendMail(emailContent, (err, info) => {
+  transporter.sendMail(replyContent, (err, info) => {
     if (err) {
-      console.error("Error sending email:", err);
+      console.error("Error sending reply:", err);
     } else {
-      console.log("Email sent successfully:", info);
+      console.log("Reply sent successfully:", info);
     }
   });
 }
 
-module.exports = sendEmail;
+module.exports = {
+  respondToEmail,
+};
