@@ -16,6 +16,7 @@ model tickets {
   fullName  String
   ticketId  Int       @unique
   subject   String
+  isOpen    Boolean
   messages  message[]
 }
 
