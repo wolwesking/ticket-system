@@ -47,7 +47,7 @@
           </tr>
         </thead>
         <tbody>
-          <% tickets.forEach(ticket => { %>
+          <% ticketData.forEach(ticket => { %>
           <tr>
             <th scope="col" class="align-middle">
               <h5 class="m-0">
@@ -64,7 +64,7 @@
             </th>
             <th scope="col" class="align-middle">
               <h5 class="m-0">
-                <span class="badge <%= ticket.isOpen ? 'bg-warning' : 'bg-success' %>">
+                <span class="badge <%= ticket.isOpen ? 'bg-warning text-dark' : 'bg-success text-light' %>">
                   <%= ticket.isOpen ? 'Open' : 'Closed' %>
                 </span>
               </h5>

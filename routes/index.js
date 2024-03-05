@@ -12,7 +12,7 @@ router.get("/", async function (req, res, next) {
   const tickets = await prisma.tickets.findMany();
   console.log(tickets);
 
-  res.render("index", { title: "Ticket dashboard", ticketDate:tickets });
+  res.render("index", { title: "Ticket dashboard", ticketData:tickets });
 });
 
 module.exports = router;

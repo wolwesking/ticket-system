@@ -1,0 +1,20 @@
+{
+  "id": 1,
+  "email": "justdev001.email@gmail.com",
+  "fullName": "justdev email",
+  "ticketId": 97928681,
+  "subject": "Test ticket",
+  "isOpen": true,
+  "date": "2024-03-05T09:54:34.475Z",
+  "messages": [
+    {
+      "id": 1,
+      "isReply": false,
+      "messageId": "<CAPrYACXgu0k-gr9XVFL3B2bqrMAXZ4CqNwjZ0Q0ALKOz9QJunQ@mail.gmail.com>",
+      "message": "NotworkingUI",
+      "replyId": "",
+      "date": "2024-03-05T09:54:17.000Z",
+      "ticketsId": 1
+    }
+  ]
+}
