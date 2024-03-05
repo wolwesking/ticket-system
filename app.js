@@ -21,8 +21,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 // Routing
 let indexRouter = require('./routes/index');
+let ticketRouter = require('./routes/ticket');
 
 app.use('/', indexRouter);
+app.use("/ticket", ticketRouter);
+// ENDBLOCK
 
 
 // catch 404 and forward to error handler
