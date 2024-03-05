@@ -1,5 +1,5 @@
 function extractEmailContent(text) {
-  const regex = /Email Content:([\s\S]*?)\nOn Mon,/;
+  const regex = /([\s\S]*?)(?:\n|$)/i;
   const match = regex.exec(text);
 
   if (match && match[1]) {

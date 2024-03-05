@@ -23,12 +23,12 @@ const transporter = nodemailer.createTransport({
 });
 
 // Send an email
-function sendEmail(recipientEmail, subject, text) {
+function sendEmail(recipientEmail, subject, htmlBody) {
   const emailContent = {
     from: smptEmail,
     to: recipientEmail,
     subject: subject,
-    text: text,
+    html: htmlBody,
   };
 
   transporter.sendMail(emailContent, (err, info) => {

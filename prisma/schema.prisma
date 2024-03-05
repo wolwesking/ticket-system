@@ -24,6 +24,7 @@ model message {
   id        Int @id @default(autoincrement())
   isReply   Boolean
   messageId String 
+  message   String
   replyId   String 
   date      DateTime
   tickets   tickets? @relation(fields: [ticketsId], references: [id])

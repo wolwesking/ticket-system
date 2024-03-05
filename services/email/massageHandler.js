@@ -3,8 +3,8 @@ const inbox = require("inbox");
 const { simpleParser } = require("mailparser");
 const emailFormatter = require("./emailFormatter");
 const { PrismaClient } = require("@prisma/client");
-const createTicket = require("../handlers/createTicket");
-const handleOpenTicket = require('../handlers/handleOpenTicket');
+const manageTicket = require("../handlers/manageTickets");
+const handleOpenTicket = require("../handlers/handleOpenTicket");
 require("dotenv").config();
 
 // Replace these values with your Outlook email credentials and server details
@@ -40,7 +40,7 @@ client.on("connect", () => {
 
         // Fetch the email content using the message's UID
         fetchEmailContent(message.UID, (err, content) => {
-          //
+          // FLOW start for whole app
           handleRequest(message, content);
           // Check for errors and output
           if (err) {
@@ -92,8 +92,9 @@ async function handleRequest(message, body) {
   // Generate id for the Message
 
   // Paraphrase the body
-  const newBody = emailFormatter(body);
+  const newBody = await emailFormatter(body);
 
+  console.log("BODY" + body);
   // Add data to database
   const prisma = new PrismaClient();
 
@@ -111,31 +112,30 @@ async function handleRequest(message, body) {
   });
 
   // Check if first time
-  if (existingTicket) 
-  {
-    // Check if the user have open 
-    
+  if (existingTicket) {
+    // Check if the user have open
+
     const existingOpenTicket = await prisma.tickets.findFirst({
-      where:{
+      where: {
         isOpen: true,
-      }
-    })
-    
+      },
+    });
+
     console.log(existingOpenTicket);
-    if(existingOpenTicket)
-    {
-      handleOpenTicket(message);
+    // CHECK IF it's a reply
+    if (message.inReplyTo) {
+      manageTicket(message, newBody);
+    } else {
+      if (existingOpenTicket) {
+        handleOpenTicket(message);
+      } else {
+        manageTicket(message, newBody);
+      }
     }
-    else
-    {
-      createTicket(message, newBody);
-    }
-  }
-  else
-  {
+  } else {
     // Create ticket
-    console.log("firstTicket")
-    createTicket(message, newBody)
+    console.log("firstTicket");
+    manageTicket(message, newBody);
   }
 
   await prisma.$disconnect();
