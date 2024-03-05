@@ -5,7 +5,7 @@ require('dotenv').config();
 
 const smptEmail = process.env.SMPT_EMAIL;
 const smtpPassword = process.env.SMPT_PASSWORD;
-const smtpServer = process.env.SMTP_SERVER;
+const smtpServer = process.env.SMPT_SERVER;
 
 // Set up the transporter
 const transporter = nodemailer.createTransport({
@@ -19,12 +19,12 @@ const transporter = nodemailer.createTransport({
 });
 
 // Reply to the Email
-function respondToEmail(recipientEmail) {
+function respondToEmail(recipientEmail, subjectToReply, messageHtml) {
   const replyContent = {
     from: smptEmail,
     to: recipientEmail,
-    subject: "Re: Hello, this is the subject",
-    text: "This is the body of the reply.",
+    subject: `Re: ${subjectToReply}`,
+    html: messageHtml,
   };
 
   transporter.sendMail(replyContent, (err, info) => {
@@ -36,6 +36,4 @@ function respondToEmail(recipientEmail) {
   });
 }
 
-module.exports = {
-  respondToEmail,
-};
+module.exports = respondToEmail;
