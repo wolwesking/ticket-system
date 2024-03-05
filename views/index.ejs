@@ -39,15 +39,55 @@
       <div class="container">
         <% tickets.forEach(ticket => { %>
         <div class="row">
-          <a href="#" class="list-group-item list-group-item-action">
-            <h5 class="mb-1">Ticket #<%= ticket.ticketId %></h5>
-            <p class="mb-1">Subject: <%= ticket.subject %></p>
-            <p class="mb-1">Email: <%= ticket.email %></p>
-            <small>Status: <%= ticket.isOpen ? 'Open' : 'Closed' %></small>
+          <a href="#" class="list-group-item list-group-item-action d-flex">
+            <div class="col">
+              <h5>
+                Ticket #
+                <span class="badge bg-info"><%= ticket.ticketId %></span>
+              </h5>
+            </div>
+            <div class="col">Subject: <%= ticket.subject %></div>
+            <div class="col">Name: <%=ticket.fullName%></div>
+            <div class="col">
+              Status: <%= ticket.isOpen ? 'Open' : 'Closed' %>
+            </div>
           </a>
         </div>
         <% }); %>
       </div>
     </div>
+
+    <table class="table">
+    <thead>
+      <tr>
+        <th scope="col">Ticket#</th>
+        <th scope="col">First</th>
+        <th scope="col">Last</th>
+        <th scope="col">Handle</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <th scope="row">1</th>
+        <td>Mark</td>
+        <td>Otto</td>
+        <td>@mdo</td>
+      </tr>
+      <tr>
+        <th scope="row">2</th>
+        <td>Jacob</td>
+        <td>Thornton</td>
+        <td>@fat</td>
+      </tr>
+      <tr>
+        <th scope="row">3</th>
+        <td>Larry</td>
+        <td>the Bird</td>
+        <td>@twitter</td>
+      </tr>
+    </tbody>
+  </table>
+
+
   </body>
 </html>
