@@ -101,6 +101,10 @@ async function createTicket(message, bodyFromClient) {
       <p>Help is on the way!</p>
       <p>Your Ticket#: ${ids}</p>
       <p>Our college will reply shortly</p>
+      <h2>You problem was:</h2>
+      <p>${bodyFromClient}</p>
+      <br/>
+      <p>Please keep the conversation in the thread</p>
       `;
 
       sendEmail(clientEmail, subject, body);
