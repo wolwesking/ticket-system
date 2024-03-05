@@ -22,9 +22,11 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Routing
 let indexRouter = require('./routes/index');
 let ticketRouter = require('./routes/ticket');
+let orderRouter = require('./routes/order');
 
 app.use('/', indexRouter);
 app.use("/ticket", ticketRouter);
+app.use("/order", orderRouter);
 // ENDBLOCK
 
 

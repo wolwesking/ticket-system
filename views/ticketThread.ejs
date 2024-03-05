@@ -46,6 +46,26 @@
             <div class="d-flex align-items-center justify-content-between">
               <h3 class="card-title"><%=tickets.subject%></h3>
               <div>
+                <!-- Handle Order Numbers -->
+                <% if (tickets.orderId) { %> 
+                  <p>Order Id: <%= tickets.orderId%>/p>
+                  <% } else { %>
+                <input
+                  type="text"
+                  class="form-control mb-2"
+                  id="textInput"
+                  placeholder="Enter the order number"
+                />
+                <button
+                  type="button"
+                  class="btn btn-primary"
+                  onclick="setOrderNumber(<%=tickets.ticketId%>)"
+                >
+                  Submit
+                </button>
+                <%}%>
+              </div>
+              <div>
                 <p class="text-muted"><%= formattedDate %></p>
                 <p class="text-muted"><%= tickets.fullName%></p>
                 <p class="text-muted"><%= tickets.email%></p>
@@ -54,7 +74,9 @@
             <hr />
             <p class="card-text"><%=tickets.messages[0].message%></p>
             <hr />
-            <button id="replyOpenButton" type="button" class="btn btn-info">Reply</button>
+            <button id="replyOpenButton" type="button" class="btn btn-info">
+              Reply
+            </button>
             <button
               type="button"
               class="btn btn-danger"
@@ -66,7 +88,11 @@
         </div>
       </div>
       <!-- ReplyBox -->
-      <div id="replyCard" class="row justify-content-center align-items-center g-2 mb-3" style="display: none;">
+      <div
+        id="replyCard"
+        class="row justify-content-center align-items-center g-2 mb-3"
+        style="display: none"
+      >
         <div class="card w-100">
           <div class="card-body">
             <div class="d-flex align-items-center justify-content-between">
@@ -82,55 +108,57 @@
             <button id="replySendButton" type="button" class="btn btn-primary">
               Send
             </button>
-            <button id="replyCancelButton" type="button" class="btn btn-dark">Cancel</button>
+            <button id="replyCancelButton" type="button" class="btn btn-dark">
+              Cancel
+            </button>
           </div>
         </div>
       </div>
     </div>
   </body>
   <script>
+    // Handle order numbers
+    function setOrderNumber(orderNum) {}
 
     // Open reply
-    $('#replyOpenButton').click(()=>{
-      $('#replyCard').css("display", "block");
+    $("#replyOpenButton").click(() => {
+      $("#replyCard").css("display", "block");
     });
 
     // Cancel reply
-    $('#replyCancelButton').click(()=>{
-      $('#replyCard').css("display", "none");
-    })
+    $("#replyCancelButton").click(() => {
+      $("#replyCard").css("display", "none");
+    });
 
     // Handle reply
-    $("#replySendButton").click(()=>{
+    $("#replySendButton").click(() => {
       const replyValue = $("#replyText").val();
-      console.log(replyValue);
-    })
+    });
 
     // Handle ticket closing
-    function CloseTicket(ticketId)
-    {
+    function CloseTicket(ticketId) {
       const confrm = confirm("Are you sure you want to close the ticket?");
 
       // DO Ticket closing stuff
-      if(confirm)
-      {
+      if (confirm) {
         fetch(`http://localhost:3000/ticket/${ticketId}`, {
           method: "DELETE",
           headers: {
-            'Content-Type': 'application/json',
-          }
-        }).then(response => {
-        if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response.json();
-    })
-    .then(data => {
-        console.log('Ticket deleted successfully:', data);
-    })
-    .catch(error => {
-        console.error('Error deleting ticket:', error);
-    });
+            "Content-Type": "application/json",
+          },
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
+          })
+          .then((data) => {
+            console.log("Ticket deleted successfully:", data);
+          })
+          .catch((error) => {
+            console.error("Error deleting ticket:", error);
+          });
       }
     }
   </script>

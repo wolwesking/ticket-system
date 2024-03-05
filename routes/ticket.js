@@ -9,7 +9,7 @@ let router = express.Router();
 const prisma = new PrismaClient();
 
 router.get("/:id", async function (req, res, next) {
-    const ticketIdUrl = parseInt(req.params.id, 10);
+    const ticketIdUrl = parseInt(req.params.id);
     const ticketData = await prisma.tickets.findFirst({
         where: {
             ticketId: ticketIdUrl,
@@ -33,12 +33,16 @@ router.get("/:id", async function (req, res, next) {
 
 router.delete("/:id", async function(req,res,next){
     const ticketIdUrl = parseInt(req.params.id);
-    console.log(ticketIdUrl);
     closeTicket(ticketIdUrl);
     res.redirect('/');
 })
 
-router.post("/:id", async function(req,res,next))
+router.post("/:id", async function(req,res,next){
+    // Replying to message
+    const ticketIdUrl = parseInt(req.params.id);
+    
+
+});
 
 
 function formatReadableDate(dateString) {
