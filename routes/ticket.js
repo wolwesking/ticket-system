@@ -7,12 +7,11 @@ let router = express.Router();
 // Get all tickets
 const prisma = new PrismaClient();
 
-router.get("/", async function (req, res, next) {
+router.get("/:id", async function (req, res, next) {
+    const ticketIdUrl = parseInt(req.params.id, 10);
+    const ticketData = 
 
-  const tickets = await prisma.tickets.findMany();
-  console.log(tickets);
-
-  res.render("index", { title: "Ticket dashboard", tickets:tickets });
+    res.render("index", { title: `Ticket - ${ticketId}`,  });
 });
 
 module.exports = router;
