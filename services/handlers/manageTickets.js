@@ -81,6 +81,7 @@ async function createTicket(message, bodyFromClient) {
           isOpen: true,
           subject: messageSubject,
           ticketId: ids,
+          date: new Date(),
           messages: {
             create: {
               date: messageDate,
