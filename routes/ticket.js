@@ -21,7 +21,8 @@ router.get("/:id", async function (req, res, next) {
     prisma.$disconnect();
     if(!ticketData)
     {
-        res.status(404).send("Can't find the ticket");
+
+        res.redirect('/');
         return;
     }
 
