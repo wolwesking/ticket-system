@@ -74,7 +74,11 @@
             <hr />
             <p class="card-text"><%=tickets.messages[0].message%></p>
             <hr />
-            <button type="button" class="btn btn-info replyOpenButton">
+            <button
+              type="button"
+              class="btn btn-info replyOpenButton"
+              onclick="reply('<%= tickets.messages[tickets.messages.length - 1].messageId%>', '<%= tickets.email%>', '<%=tickets.ticketId%>', '<%=tickets.subject%>')"
+            >
               Reply
             </button>
             <button
@@ -89,7 +93,7 @@
       </div>
       <!-- List all messages -->
       <% for( let index = 1; index < tickets.messages.length; index++ ) { %>
-      
+
       <div class="row justify-content-center align-items-center g-2 mb-3">
         <div class="card w-100">
           <div class="card-body">
@@ -100,8 +104,10 @@
               </div>
               <div>
                 <p class="text-muted">
-                  <span class="badge  <%=tickets.messages[index].fromUs ? 'bg-warning': 'bg-white'%>"
-                    ><%=tickets.messages[index].fromUs ? "Support team": tickets.email%></span
+                  <span
+                    class="badge <%=tickets.messages[index].fromUs ? 'bg-warning': 'bg-white'%>"
+                    ><%=tickets.messages[index].fromUs ? "Support team":
+                    tickets.email%></span
                   >
                 </p>
               </div>
