@@ -14,7 +14,7 @@ console.log("smtpServer:" + smtpServer);
 
 // Set up the transporter
 const transporter = nodemailer.createTransport({
-  host: smtpServer,
+  host: smtpServer, 
   port: smtpPort,
   secure: false,
   auth: {
