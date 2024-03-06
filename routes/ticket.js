@@ -34,7 +34,7 @@ router.get("/:id", async function (req, res, next) {
 router.delete("/:id", async function(req,res,next){
     const ticketIdUrl = parseInt(req.params.id);
     closeTicket(ticketIdUrl);
-    res.redirect('/');
+    res.redirect(`/${ticketIdUrl}`);
 })
 
 router.post("/:id", async function(req,res,next){

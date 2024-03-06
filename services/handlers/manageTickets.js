@@ -23,20 +23,27 @@ async function createTicket(message, bodyFromClient) {
 
     try {
       // Find parent ticket thread
-      const existingTicket = await prisma.tickets.findUnique({
-        where: {
-          email: clientEmail,
-          isOpen: true,
-          ticketId: newTicketID,
-        },
-      });
 
-      if(!existingTicket)
+      if (newTicketID) {
+        const existingTicket = await prisma.tickets.findUnique({
+          where: {
+            email: clientEmail,
+            isOpen: true,
+            ticketId: newTicketID,
+          },
+        });
+      }
+      else
       {
-        console.log('No match found');
+        console.log("No match found");
         return;
       }
-      
+
+      if (!existingTicket) {
+        console.log("No match found");
+        return;
+      }
+
       // Add the reply to the thread
       const updateTciket = await prisma.tickets.update({
         where: {
@@ -46,19 +53,18 @@ async function createTicket(message, bodyFromClient) {
         },
         data: {
           messages: {
-            create:{
+            create: {
               isReply: true,
               replyId: replyId,
               messageId: messageId,
               date: messageDate,
               message: bodyFromClient,
-            }
-          }
-        }
-      })
+            },
+          },
+        },
+      });
 
       console.log("message added: " + JSON.stringify(updateTciket));
-
     } catch (err) {
       console.log("Error with prisma: " + err);
     } finally {

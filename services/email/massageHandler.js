@@ -123,6 +123,7 @@ async function handleRequest(message, body) {
 
     console.log(existingOpenTicket);
     // CHECK IF it's a reply
+
     if (message.inReplyTo) {
       manageTicket(message, newBody);
     } else {
