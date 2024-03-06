@@ -90,6 +90,7 @@ async function createTicket(message, bodyFromClient) {
           subject: messageSubject,
           ticketId: ids,
           date: new Date(),
+          orderId: "",
           messages: {
             create: {
               date: messageDate,

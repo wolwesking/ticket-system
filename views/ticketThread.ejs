@@ -48,12 +48,12 @@
               <div>
                 <!-- Handle Order Numbers -->
                 <% if (tickets.orderId) { %> 
-                  <p>Order Id: <%= tickets.orderId%>/p>
+                  <h5>Order #: <%= tickets.orderId%></h5>
                   <% } else { %>
                 <input
                   type="text"
                   class="form-control mb-2"
-                  id="textInput"
+                  id="orderNumber"
                   placeholder="Enter the order number"
                 />
                 <button
@@ -118,7 +118,25 @@
   </body>
   <script>
     // Handle order numbers
-    function setOrderNumber(orderNum) {}
+    function setOrderNumber(ticketId) {
+      const orderId = $("#orderNumber").val();
+      if(orderId !== "")
+      {
+        const dataToSend = {
+          ticketId: ticketId,
+          orderId: orderId,
+
+        }
+
+        fetch(`http://localhost:3000/order/${ticketId}`, {
+          method: "POST",
+          headers:{
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataToSend),
+        })
+      }
+    }
 
     // Open reply
     $("#replyOpenButton").click(() => {
