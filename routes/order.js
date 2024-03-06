@@ -8,7 +8,8 @@ let router = express.Router();
 const prisma = new PrismaClient();
 
 router.post("/:id", async function (req, res, next) {
-  const { ticketId, orderId } = req.body;
+  let { ticketId, orderId } = req.body;
+  ticketId = parseInt(ticketId);
 
   // Edit data
   try {

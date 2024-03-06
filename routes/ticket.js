@@ -1,6 +1,7 @@
 const { PrismaClient } = require("@prisma/client");
 let express = require("express");
 const closeTicket = require("../services/handlers/closeTicket");
+const respondToEmail = require("../services/email/replyEmail");
 let router = express.Router();
 
 /* GET home page. */
@@ -10,7 +11,7 @@ const prisma = new PrismaClient();
 
 router.get("/:id", async function (req, res, next) {
   const ticketIdUrl = parseInt(req.params.id);
-    let ticketData;
+  let ticketData;
   try {
     ticketData = await prisma.tickets.findFirst({
       where: {
@@ -20,7 +21,6 @@ router.get("/:id", async function (req, res, next) {
         messages: true,
       },
     });
-    
   } catch (err) {
     console.log("Error with ticket: " + err);
   } finally {
@@ -39,7 +39,7 @@ router.get("/:id", async function (req, res, next) {
   res.render("ticketThread", {
     title: `Ticket - ${ticketIdUrl}`,
     tickets: ticketData,
-    formattedDate: formatedDate, 
+    formattedDate: formatedDate,
   });
 });
 
@@ -51,8 +51,38 @@ router.delete("/:id", async function (req, res, next) {
 
 router.post("/:id", async function (req, res, next) {
   // Replying to message
-  const ticketIdUrl = parseInt(req.params.id);
-  console.log(req.body);
+  let { messageId, email, ticketId, message, subject } = req.body;
+  ticketId = parseInt(ticketId);
+  let updateTciket;
+  try {
+    updateTciket = await prisma.tickets.update({
+      where: {
+        ticketId: ticketId,
+        email: email,
+      },
+      data: {
+        messages: {
+          create: {
+            isReply: true,
+            messageId: messageId,
+            date: new Date(),
+            message: message,
+            fromUs: true,
+          },
+        },
+      },
+    });
+    const newSubject = `${subject} - [Ticket#: ${ticketId}]`
+    console.log(newSubject);
+    // Sending reply to email
+    respondToEmail(email, newSubject, message);
+
+  } catch (err) {
+    console.log("error in reply: " + err);
+  } finally {
+    res.redirect(`/ticket/${ticketId}`);
+    prisma.$disconnect();
+  }
 });
 
 function formatReadableDate(dateString) {

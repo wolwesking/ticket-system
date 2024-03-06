@@ -27,8 +27,8 @@ model message {
   isReply   Boolean
   messageId String 
   message   String
-  replyId   String 
   date      DateTime
+  fromUs    Boolean
   tickets   tickets? @relation(fields: [ticketsId], references: [id])
   ticketsId Int?
 }

@@ -12,7 +12,6 @@ async function createTicket(message, bodyFromClient) {
     const messageSubject = message.title;
     const messageDate = message.date;
     const messageId = message.messageId;
-    const replyId = message.inReplyTo;
     const ids = await getSubjectID(messageSubject);
     const newTicketID = await parseInt(ids);
 
@@ -55,10 +54,10 @@ async function createTicket(message, bodyFromClient) {
           messages: {
             create: {
               isReply: true,
-              replyId: replyId,
               messageId: messageId,
               date: messageDate,
               message: bodyFromClient,
+              fromUs: false
             },
           },
         },
@@ -96,8 +95,8 @@ async function createTicket(message, bodyFromClient) {
               date: messageDate,
               isReply: false,
               messageId: messageId,
-              replyId: "",
               message: bodyFromClient,
+              fromUs: false,
             },
           },
         },

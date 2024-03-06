@@ -59,7 +59,7 @@
                 <button
                   type="button"
                   class="btn btn-primary"
-                  onclick="setOrderNumber(<%=tickets.ticketId%>)"
+                  onclick="setOrderNumber('<%=tickets.ticketId%>')"
                 >
                   Submit
                 </button>
@@ -80,7 +80,7 @@
             <button
               type="button"
               class="btn btn-danger"
-              onclick="CloseTicket(<%=tickets.ticketId%>)"
+              onclick="CloseTicket('<%=tickets.ticketId%>')"
             >
               Close Ticket
             </button>
@@ -88,24 +88,29 @@
         </div>
       </div>
       <!-- List all messages -->
+      <% tickets.messages.forEach(message => { %>
       <div class="row justify-content-center align-items-center g-2 mb-3">
         <div class="card w-100">
           <div class="card-body">
             <div class="d-flex align-items-center justify-content-between">
               <div>
                 <!-- Handle Order Numbers -->
-                <h5>Re: Subject</h5>
+                <h5>Re: <%=tickets.subject%></h5>
               </div>
               <div>
-                <p class="text-muted"><%= tickets.email%></p>
+                <p class="text-muted">
+                  <span class="badge  <%=message.fromUs ? 'bg-warning': 'bg-white'%>"
+                    ><%=message.fromUs ? "Support team": tickets.email%></span
+                  >
+                </p>
               </div>
             </div>
             <hr />
-            <p class="card-text"><%=tickets.messages[0].message%></p>
+            <p class="card-text"><%=message.message%></p>
             <hr />
             <button
               type="button"
-              onclick="reply('<%= tickets.messages[tickets.messages.length - 1].messageId%>', '<%= tickets.email%>', '<%=tickets.ticketId%>')"
+              onclick="reply('<%= tickets.messages[tickets.messages.length - 1].messageId%>', '<%= tickets.email%>', '<%=tickets.ticketId%>', '<%=tickets.subject%>')"
               class="btn btn-info replyOpenButton"
             >
               Reply
@@ -113,6 +118,7 @@
           </div>
         </div>
       </div>
+      <% }) %>
 
       <!-- ReplyBox -->
       <div
@@ -148,14 +154,17 @@
     let messageId;
     let email;
     let ticketId;
-    function reply(messageId2, email2, ticketId2) {
+    let subject;
+    const domain = "http://localhost:3000";
+    function reply(messageId2, email2, ticketId2, subject2) {
       messageId = messageId2;
       email = email2;
       ticketId = ticketId2;
+      subject = subject2;
     }
 
     $("#replySendButton").click(() => {
-      // Check if all data is there 
+      // Check if all data is there
       const replyValue = $("#replyText").val();
 
       if (messageId && email && ticketId && replyValue !== "") {
@@ -165,17 +174,18 @@
           messageId: messageId,
           email: email,
           ticketId: ticketId,
-          message:replyValue,
-        }
+          message: replyValue,
+          subject: subject,
+        };
 
-        fetch(`http://localhost:3000/ticket/${ticketId}`, {
+        fetch(`${domain}/ticket/${ticketId}`, {
           method: "POST",
-          headers:
-          {
+          headers: {
             "Content-Type": "application/json",
           },
-          body: JSON.stringify(dataToSend)
-        })
+          body: JSON.stringify(dataToSend),
+        });
+        $("#replyCard").css("display", "none");
       }
     });
 
@@ -188,7 +198,7 @@
           orderId: orderId,
         };
 
-        fetch(`http://localhost:3000/order/${ticketId}`, {
+        fetch(`${domain}/order/${ticketId}`, {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
@@ -216,7 +226,7 @@
 
       // DO Ticket closing stuff
       if (confirm) {
-        fetch(`http://localhost:3000/ticket/${ticketId}`, {
+        fetch(`${domain}/ticket/${ticketId}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
