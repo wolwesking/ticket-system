@@ -88,7 +88,8 @@
         </div>
       </div>
       <!-- List all messages -->
-      <% tickets.messages.forEach(message => { %>
+      <% for( let index = 1; index < tickets.messages.length; index++ ) { %>
+      
       <div class="row justify-content-center align-items-center g-2 mb-3">
         <div class="card w-100">
           <div class="card-body">
@@ -99,14 +100,14 @@
               </div>
               <div>
                 <p class="text-muted">
-                  <span class="badge  <%=message.fromUs ? 'bg-warning': 'bg-white'%>"
-                    ><%=message.fromUs ? "Support team": tickets.email%></span
+                  <span class="badge  <%=tickets.messages[index].fromUs ? 'bg-warning': 'bg-white'%>"
+                    ><%=tickets.messages[index].fromUs ? "Support team": tickets.email%></span
                   >
                 </p>
               </div>
             </div>
             <hr />
-            <p class="card-text"><%=message.message%></p>
+            <p class="card-text"><%=tickets.messages[index].message%></p>
             <hr />
             <button
               type="button"
@@ -118,7 +119,7 @@
           </div>
         </div>
       </div>
-      <% }) %>
+      <% } %>
 
       <!-- ReplyBox -->
       <div
