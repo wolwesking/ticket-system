@@ -10,7 +10,6 @@ const prisma = new PrismaClient();
 router.get("/", async function (req, res, next) {
 
   const tickets = await prisma.tickets.findMany();
-  console.log(tickets);
 
   res.render("index", { title: "Ticket dashboard", ticketData:tickets });
 });

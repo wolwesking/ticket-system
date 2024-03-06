@@ -20,12 +20,12 @@ async function createTicket(message, bodyFromClient) {
     const prisma = new PrismaClient();
 
     console.log(messageSubject);
-
+    let existingTicket;
     try {
       // Find parent ticket thread
 
       if (newTicketID) {
-        const existingTicket = await prisma.tickets.findUnique({
+        existingTicket = await prisma.tickets.findUnique({
           where: {
             email: clientEmail,
             isOpen: true,

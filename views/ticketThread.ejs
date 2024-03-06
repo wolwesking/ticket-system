@@ -47,9 +47,9 @@
               <h3 class="card-title"><%=tickets.subject%></h3>
               <div>
                 <!-- Handle Order Numbers -->
-                <% if (tickets.orderId) { %> 
-                  <h5>Order #: <%= tickets.orderId%></h5>
-                  <% } else { %>
+                <% if (tickets.orderId) { %>
+                <h5>Order #: <%= tickets.orderId%></h5>
+                <% } else { %>
                 <input
                   type="text"
                   class="form-control mb-2"
@@ -74,7 +74,7 @@
             <hr />
             <p class="card-text"><%=tickets.messages[0].message%></p>
             <hr />
-            <button id="replyOpenButton" type="button" class="btn btn-info">
+            <button type="button" class="btn btn-info replyOpenButton">
               Reply
             </button>
             <button
@@ -87,6 +87,33 @@
           </div>
         </div>
       </div>
+      <!-- List all messages -->
+      <div class="row justify-content-center align-items-center g-2 mb-3">
+        <div class="card w-100">
+          <div class="card-body">
+            <div class="d-flex align-items-center justify-content-between">
+              <div>
+                <!-- Handle Order Numbers -->
+                <h5>Re: Subject</h5>
+              </div>
+              <div>
+                <p class="text-muted"><%= tickets.email%></p>
+              </div>
+            </div>
+            <hr />
+            <p class="card-text"><%=tickets.messages[0].message%></p>
+            <hr />
+            <button
+              type="button"
+              onclick="reply('<%= tickets.messages[tickets.messages.length - 1].messageId%>', '<%= tickets.email%>', '<%=tickets.ticketId%>')"
+              class="btn btn-info replyOpenButton"
+            >
+              Reply
+            </button>
+          </div>
+        </div>
+      </div>
+
       <!-- ReplyBox -->
       <div
         id="replyCard"
@@ -117,29 +144,62 @@
     </div>
   </body>
   <script>
+    // Reply
+    let messageId;
+    let email;
+    let ticketId;
+    function reply(messageId2, email2, ticketId2) {
+      messageId = messageId2;
+      email = email2;
+      ticketId = ticketId2;
+    }
+
+    $("#replySendButton").click(() => {
+      // Check if all data is there 
+      const replyValue = $("#replyText").val();
+
+      if (messageId && email && ticketId && replyValue !== "") {
+        // send Reply
+
+        const dataToSend = {
+          messageId: messageId,
+          email: email,
+          ticketId: ticketId,
+          message:replyValue,
+        }
+
+        fetch(`http://localhost:3000/ticket/${ticketId}`, {
+          method: "POST",
+          headers:
+          {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(dataToSend)
+        })
+      }
+    });
+
     // Handle order numbers
     function setOrderNumber(ticketId) {
       const orderId = $("#orderNumber").val();
-      if(orderId !== "")
-      {
+      if (orderId !== "") {
         const dataToSend = {
           ticketId: ticketId,
           orderId: orderId,
-
-        }
+        };
 
         fetch(`http://localhost:3000/order/${ticketId}`, {
           method: "POST",
-          headers:{
+          headers: {
             "Content-Type": "application/json",
           },
           body: JSON.stringify(dataToSend),
-        })
+        });
       }
     }
 
     // Open reply
-    $("#replyOpenButton").click(() => {
+    $(".replyOpenButton").click(() => {
       $("#replyCard").css("display", "block");
     });
 
@@ -149,9 +209,6 @@
     });
 
     // Handle reply
-    $("#replySendButton").click(() => {
-      const replyValue = $("#replyText").val();
-    });
 
     // Handle ticket closing
     function CloseTicket(ticketId) {
